@@ -1,0 +1,172 @@
+From nobody Fri Jul  1 09:21:20 2012
+From: J. Random Sender <jrsender@sender.example.com>
+To: Random Recipient One <first_recipient@receivers.example.com>
+Cc: Random Recipient Two <second_recipient@receivers.example.com>,  
+    Some Third Recipient <recipient_three@receivers.example.com>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <1.87furtcucg.fsf@red-bean.com>
+
+Body of test message 1.
+
+From nobody Fri Jul  1 09:21:20 2013
+From: J. Random Sender <jrsender@sender.example.com>
+To: Random Recipient One <first_recipient@receivers.example.com>
+Cc: Random Recipient Two <second_recipient@receivers.example.com>,  
+    Some Third Recipient <recipient_three@receivers.example.com>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2013 09:21:19 -0500
+Message-ID: <2.87furtcucg.fsf@red-bean.com>
+
+Body of test message 2.
+
+From nobody Fri Jul  1 09:21:20 2014
+From: J. Random Sender <jrsender@sender.example.com>
+To: Random Recipient One <first_recipient@receivers.example.com>
+Cc: Random Recipient Two <second_recipient@receivers.example.com>,  
+    Some Third Recipient <recipient_three@receivers.example.com>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2014 09:21:19 -0500
+Message-ID: <3.87furtcucg.fsf@red-bean.com>
+
+Body of test message 3.
+
+From nobody Fri Jul  1 09:21:20 2015
+From: J. Random Sender <jrsender@sender.example.com>
+To: Random Recipient One <first_recipient@receivers.example.com>
+Cc: Random Recipient Two <second_recipient@receivers.example.com>,  
+    Some Third Recipient <recipient_three@receivers.example.com>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2015 09:21:19 -0500
+Message-ID: <4.87furtcucg.fsf@red-bean.com>
+
+Body of test message 4.
+
+From nobody Fri Jul  1 09:21:20 2016
+From: J. Random Sender <jrsender@sender.example.com>
+To: Random Recipient One <first_recipient@receivers.example.com>
+Cc: Random Recipient Two <second_recipient@receivers.example.com>, 
+    Some Third Recipient <recipient_three@receivers.example.com>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2016 09:21:19 -0500
+Message-ID: <5.87furtcucg.fsf@red-bean.com>
+
+Body of test message 5.
+
+From nobody Fri Jul  1 09:21:20 2016
+From: j. random sender <jrsender@sender.example.com>
+To: random recipient one <first_recipient@receivers.example.com>
+cc: random recipient two <second_recipient@receivers.example.com>,  
+    some third recipient <recipient_three@receivers.example.com>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <5.1.87furtcucg.fsf@red-bean.com>
+
+Body of test message 5.1.
+
+From nobody Fri Jul  1 09:21:20 2016
+From: j. random sender <jrsender@sender.example.com>
+To: random recipient one <FIRST_RECIPIENT@RECEIVERS.EXAMPLE.COM>
+cc: random recipient two <SECOND_RECIPIENT@RECEIVERS.EXAMPLE.COM>,  
+    some third recipient <RECIPIENT_THREE@RECEIVERS.EXAMPLE.COM>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <5.2.87furtcucg.fsf@red-bean.com>
+
+Body of test message 5.2.
+
+From nobody Fri Jul  1 09:21:20 2017
+From: "jrsender@sender.example.com" <jrsender@sender.example.com>
+To: random recipient one <FIRST_RECIPIENT@RECEIVERS.EXAMPLE.COM>
+cc: random recipient two <SECOND_RECIPIENT@RECEIVERS.EXAMPLE.COM>,  
+    some third recipient <RECIPIENT_THREE@RECEIVERS.EXAMPLE.COM>
+Subject: Re: that subject line from previously in this thread
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <6.87furtcucg.fsf@red-bean.com>
+
+Body of test message 6.
+
+In this message, the sender's name is identical to the email address,
+and therefore should not be included as a name in the output.  But
+because that same sender address has been seen on older dates (2016
+and before), that sender should still get this new 2017 date.
+
+From nobody Fri Jul  1 09:21:20 2017
+From: "Karl Fogel" <kfogel@sender.example.com>
+To: "Someone I Sent To" <designated_receiver@receivers.example.com>
+Cc: Someone Else I Sent To <other_designated_receiver@receivers.example.com>
+Subject: Some other thread entirely, in which I sent an email.
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <7.87furtcucg.fsf@red-bean.com>
+
+Body of test message 7.
+
+In this message, the sender is me, so it should get a special
+sent-count score internally.
+
+From nobody Tue May  5 10:13:12  2009
+From: Zack Yiming <zy@example.com>
+To: Abilene Szymanowski <a.szymanowski@example.com>
+References: <BAF3A3D5-641B-45BA-9DA1-DC767D2D9ECE@gmail.com>
+	<4383E9F6-9B66-4DA4-AA3C-D602EB059B97@gmail.com>
+	<139B721E-A1B4-4256-B202-D4472C0331FB@gmail.com>
+	<B31667CB-C4A4-48A4-A1E0-7D81AD6880A3@gmail.com>
+	<87d4aowc1l.fsf@cyd.mit.edu>
+	<2E6E5869-2F70-4AF5-A917-7EA863D6BD42@gmail.com>
+	<1ACB40A8-4422-4B9A-A0F7-FE0B9C738299@gmail.com>
+Date: Tue, 05 May 2009 10:13:12 -0400
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Cc: 2530@emacsbugs.example.com, Emacs Developer <edev@example.com>,
+	Yet Another Emacs Developer <yaedev@example.com>, \, Emacs-Devel List <emacs-devel@example.com>
+Subject: Re: 23/NS: redraws according to mouse-face are slow
+
+Body omitted -- this is just to test the "\" in the CC list.
+
+The real message is archived on Emacs Devel, or can be found in
+mail/emacs/devel/93029 in my personal mail tree.
+
+From nobody Tue Dec  4 10:13:12  2017
+From: kbnikto@example.com
+To: Abilene Szymanowski <a.szymanowski@example.com>
+Date: Tue, 04 Dec 2017 10:13:12 -0400
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test kelley message 1
+
+Body omitted; this is just to test best_addr().
+
+From nobody Tue Jul 11 10:13:12  2017
+From: Klaatu Barada Nikto <kbnikto@example.com>
+To: Abilene Szymanowski <a.szymanowski@example.com>
+Date: Tue, 11 Jul 2017 10:13:12 -0400
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test kelley message 2
+
+Body omitted; this is just to test best_addr().
+
+From nobody Tue Sep 10 10:13:12  2016
+From: kbnikto@example.com
+To: Abilene Szymanowski <a.szymanowski@example.com>
+Date: Tue, 10 Sep 2016 10:13:12 -0400
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test kelley message 3
+
+Body omitted; this is just to test best_addr().
+
+From nobody Tue Sep 10 10:13:12  2012
+From: kbnikto@example.com
+To: Abigail Darnaville <abigaild@example.com>
+Date: Tue, 10 Sep 2016 10:13:12 -0400
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test kelley message 3
+
+Body omitted; this is just to test best_addr().
+
+From nobody Tue Sep 10 10:13:12  2011
+From: kbnikto@example.com
+To: Abigail Darnaville <abigaild@example.com>
+Date: Tue, 10 Sep 2016 10:13:12 -0400
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test kelley message 3
+
+Body omitted; this is just to test best_addr().
+
