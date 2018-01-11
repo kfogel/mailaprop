@@ -1,4 +1,4 @@
-;;;; Mailaprop: a custom completion system for my email contacts.
+;;;; Mailaprop: popup-style autofill for email addresses in Emacs.
 ;;;
 ;;; Copyright (C) 2007-2018  Karl Fogel
 ;;; 
@@ -14,6 +14,8 @@
 ;;; 
 ;;; You should have received a copy of the GNU Affero General Public License
 ;;; along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+;;; Home page: https://github.com/kfogel/mailaprop/
 
 ;; TODO: 
 ;;
