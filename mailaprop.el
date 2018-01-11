@@ -263,8 +263,7 @@ In that case, it should still work; hence this function."
                                   ;; Just kluge dates for now, if
                                   ;; scores are equal.  We could do a
                                   ;; real date comparison; in fact,
-                                  ;; the Python code implements that
-                                  ;; (bin/mailaprop/mailaprop.py).
+                                  ;; mailaprop.py implements that.
                                   ;; But by the time you get down to
                                   ;; these details in the sort, it
                                   ;; doesn't really matter anymore.
