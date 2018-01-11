@@ -7,23 +7,27 @@ Overview
 --------
 
 This package provides popup-style email address completion when
-composing mail in Emacs.
+composing mail in Emacs.  Here's a [video of mailaprop in
+action](mailaprop-example-session.webm) (click through and then click
+"View Raw").
 
 As you start typing an address, a popup window offers the possible
 completions so far, prioritized according to how often the addresses
-appear in your email, with sent-to addresses weighted more highly than
-received-from addresses.  You can use the arrow keys to navigate up
-and down the list of possible addresses, or just keep typing letters
-to narrow the list further.  Once you've got the address you want, you
-hit Return and that address is inserted.
+appear in your email; sent-to addresses are weighted more highly than
+received-from addresses.  Each address also shows the date it was last
+interacted with (sent to or received from), and its mailaprop score.
 
-Here's a [video of mailaprop in action](mailaprop-example-session.webm).
+Use arrow keys to navigate up and down the candidate addresses, or
+type more letters to narrow the list further.  Once you've got the
+address you want, hit Return to insert that address into the email
+header.
 
-This is basically the same autofill behavior you are probably used to
-seeing in your browser when you interact with the sorts of online
-services that shove proprietary Javascript to your tabs.  Unlike them,
-however, this package operates on data that is all stored locally, and
-uses only free software.
+This is basically the same autofill behavior you're probably used to
+having in your browser when you interact with the sorts of online
+services that send proprietary Javascript to your tabs.  Unlike them,
+however, this package is entirely free software and operates on data
+that is all stored locally.  You shouldn't need to hand over your
+social graph to billionaires just to get decent autofill behavior.
 
 Speaking of which, you don't have to use any proprietary Javascript to
 interact with this project.  You can use plain git to clone the
@@ -46,17 +50,18 @@ away from the computer to reconsider various choices in your life.
 What about BBDB?  Doesn't it already do this?
 ---------------------------------------------
 
-Does BBDB offer popup-style autofill these days?  It might.  It's been
-a long time since I used BBDB.  Back when I last did, a decade or five
-ago, email address completion wasn't working.  Maybe I failed to run
-some initialization function, or mis-installed BBDB, or whatever.  Who
+Does [BBDB](https://www.emacswiki.org/emacs/BbdbMode) offer
+popup-style autofill these days?  It might.  It's been a long time
+since I used BBDB.  Back when I last did, a decade or five ago, email
+address completion wasn't working.  Maybe I failed to run some
+initialization function, or mis-installed BBDB, or whatever.  Who
 knows?  It's BBDB.
 
 BBDB later went dormant, and then came alive again, and is now
-actively maintained, so perhaps my libels are all outdated.  See
-https://www.emacswiki.org/emacs/BbdbMode, the development page at
-http://savannah.nongnu.org/projects/bbdb/, and the commit logs at
-http://git.savannah.nongnu.org/cgit/bbdb.git/log/ for more.
+actively maintained, so perhaps my libels are outdated.  See the
+[development page](http://savannah.nongnu.org/projects/bbdb/) and
+[commit logs](http://git.savannah.nongnu.org/cgit/bbdb.git/log/) for
+more.
 
 Anyway, it's too late.  By now I'm in too deep to get out.
 
