@@ -89,9 +89,9 @@ Run it.  Congratulations, you've got a file full of email addresses!
 
 Grab my .emacs (http://svn.red-bean.com/repos/kfogel/trunk/.emacs) and
 search for "mailaprop".  You may want to write a custom
-``mailaprop-skip-address-fn'` as I did.
+`mailaprop-skip-address-fn` as I did.
 
-TODO: update ``mail-mode-hook'` and ``message-mode-hook'`.
+TODO: update `mail-mode-hook` and `message-mode-hook`.
 
 TODO: document how each email address must be on its own line
 
