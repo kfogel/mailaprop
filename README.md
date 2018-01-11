@@ -25,6 +25,12 @@ services that shove proprietary Javascript to your tabs.  Unlike them,
 however, this package operates on data that is all stored locally, and
 uses only free software.
 
+Speaking of which, you don't have to use any proprietary Javascript to
+interact with this project.  You can use plain git to clone the
+repository from GitHub at https://github.com/kfogel/mailaprop.git, and
+I'll happily take bug reports by email instead of via the GitHub issue
+tracker: kfogel {_AT_} red-bean.com.
+
 How long does it take to set up?
 --------------------------------
 
