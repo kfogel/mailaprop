@@ -26,8 +26,8 @@ This is basically the same autofill behavior you're probably used to
 having in your browser when you interact with the sorts of online
 services that send proprietary Javascript to your tabs.  Unlike them,
 however, this package is entirely free software and operates on data
-that is all stored locally.  You shouldn't need to hand over your
-social graph to billionaires just to get decent autofill behavior.
+that is all stored locally.  You shouldn't need to hand your social
+graph to billionaires just to get decent autofill behavior.
 
 Speaking of which, you don't have to use any proprietary Javascript to
 interact with this project.  You can use plain git to clone the
