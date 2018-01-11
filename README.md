@@ -97,6 +97,11 @@ Grab my .emacs (http://svn.red-bean.com/repos/kfogel/trunk/.emacs) and
 search for "mailaprop".  You may want to write a custom
 `mailaprop-skip-address-fn` as I did.
 
+TODO: document setting `mailaprop-address-file`
+
+TODO: document order of things in .emacs (but maybe fix mailaprop.el
+so that it's less sensitive to that order).
+
 TODO: update `mail-mode-hook` and `message-mode-hook`.
 
 TODO: document how each email address must be on its own line
