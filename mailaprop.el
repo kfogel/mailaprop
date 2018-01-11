@@ -299,7 +299,8 @@ If there is score corresponding to ADDR, return zero."
     (candidates       (when (> (length arg) 0)
                         ;; Note that this treats arg not as a prefix,
                         ;; but as a substring that can appear anywhere
-                        ;; in the address.
+                        ;; in the address.  TODO: we could make that a 
+                        ;; choice, controllable by the user.
                         (mailaprop-get-candidates arg)))
     (post-completion  nil)
     (annotation       (concat 
