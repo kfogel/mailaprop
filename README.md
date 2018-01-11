@@ -1,7 +1,7 @@
 mailaprop: modern autofill for email addresses in GNU Emacs.
 ============================================================
 
-*TODO (2018-01-10): This documentation is a work in progress.*
+*TODO (2018-01-11): This documentation is a work in progress.*
 
 Overview
 --------
@@ -17,17 +17,17 @@ appear in your email; sent-to addresses are weighted more highly than
 received-from addresses.  Each address also shows the date it was last
 interacted with (sent to or received from), and its mailaprop score.
 
-Use arrow keys to navigate up and down the candidate addresses, or
-type more letters to narrow the list further.  Once you've got the
-address you want, hit Return to insert that address into the email
-header.
+Almost always, once you've typed a few letters the top candidate
+address will be the one you want -- you just hit Return to choose it.
+Otherwise, you can use the arrow keys to navigate up and down the
+list, or type more letters to narrow to fewer candidates.
 
-This is basically the same autofill behavior you're probably used to
+This is basically the same autofill feature you're probably used to
 having in your browser when you interact with the sorts of online
 services that send proprietary Javascript to your tabs.  Unlike them,
 however, this package is entirely free software and operates on data
-that is all stored locally.  You shouldn't need to hand your social
-graph to billionaires just to get decent autofill behavior.
+that is all stored locally.  You shouldn't need to hand over your
+social graph to billionaires just to get decent autofill behavior.
 
 Speaking of which, you don't have to use any proprietary Javascript to
 interact with this project.  You can use plain git to clone the
@@ -101,6 +101,8 @@ Run it.  Congratulations, you've got a file full of email addresses!
 Grab my .emacs (http://svn.red-bean.com/repos/kfogel/trunk/.emacs) and
 search for "mailaprop".  You may want to write a custom
 `mailaprop-skip-address-fn` as I did.
+
+TODO: give some idea of how long mailaprop.py will take to run
 
 TODO: document setting `mailaprop-address-file`
 
