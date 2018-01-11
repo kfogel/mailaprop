@@ -35,7 +35,7 @@
 ;; get company-mode.  https://github.com/company-mode/company-mode/ is
 ;; where I get it from, for what it's worth, and I load it with this:
 ;;
-;;   (let* ((local-company (expand-file-name "~/src/company-mode")))
+;;   (let ((local-company (expand-file-name "~/src/company-mode")))
 ;;     (when (file-exists-p local-company)
 ;;       (add-to-list 'load-path local-company)
 ;;       (require 'company)))
