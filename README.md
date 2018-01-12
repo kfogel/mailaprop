@@ -166,7 +166,7 @@ but below, the second one could not have been autofilled:
 
         To: J. Random <jrandom@jrandom.com>, Victoria O'Hara <vickyh@foo.bar>
 
-**Reloading the completion database.**
+**Reloading the completion database:**
 
 If you rebuild your completion database while Emacs is running, you
 can reload it by running `M-x mailaprop-reload-addresses`
