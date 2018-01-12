@@ -73,48 +73,50 @@ Installation instructions.
 
 First, a high-level view:
 
-You run a shell script (build-address-list.sh), which invokes a Python
-script (mailaprop.py) that ingests various mbox files supplied by you.
-You customize the shell script to find whatever input files you want.
-As long as they're in mbox format, and have desirable email addresses
-waiting to be harvested in the message headers, they should be fine.
+You run a shell script (`build-address-list.sh`), which invokes a
+Python script (`mailaprop.py`) that ingests various mbox files.  You
+told `mailaprop.py` where to find those mbox files by making light
+edits to `build-address-list.sh`.
 
-The result of this is a file, 'email-addresses.eld' -- that's the
-completion database.
+There can be as many input files as you want.  As long as they're in
+mbox format, and have email addresses waiting to be harvested in their
+message headers, they should work.
 
-Your .emacs loads mailaprop.el, and runs some mailaprop functions that
-inhale that file.  You'll also adjust Emacs mail-mode and message-mode
-so that when you start typing in a header that expects email
-addresses, you get the popup-style autofill behavior offering the possible
-completions so far, prioritized according to how often the addresses
-appear in your email (with sent-to addresses weighted more highly than
-received-from).
+The result of the above is a file, 'mailaprop-addresses.eld' -- that's
+the completion database.  Your .emacs loads `mailaprop.el`, and runs
+some mailaprop functions that inhale 'mailaprop-addresses.eld'.
+
+You'll also add some hooks to `mail-mode-hooks` and
+`message-mode-hooks` so that when you are in a message composition
+buffer and you start typing in the `To:`, `CC:`, or `BCC:` header, you
+get the popup-style autofill behavior.
 
 Details:
 
-*TODO: The rest of these instructions still need some work.*
+*TODO (2018-01-12): The rest of these instructions still need some work.*
 
-Modify build-address-list.sh as needed; comments in that file will
+Modify `build-address-list.sh` as needed; comments in that file will
 explain how.  (You may eventually want to invoke it from a cron job so
 it runs daily to rebuild your completion database, since presumbably
 your input files will always be accumulating new addresses.)
 
 Run it.  Congratulations, you've got a file full of email addresses!
 
-Grab my .emacs (http://svn.red-bean.com/repos/kfogel/trunk/.emacs) and
-search for "mailaprop".  You may want to write a custom
+Grab my [.emacs](http://svn.red-bean.com/repos/kfogel/trunk/.emacs)
+and search for "mailaprop".  You may want to write a custom
 `mailaprop-skip-address-fn` as I did.
 
 TODO: give some idea of how long mailaprop.py will take to run
 
 TODO: document setting `mailaprop-address-file`
 
-TODO: document order of things in .emacs (but maybe fix mailaprop.el
-so that it's less sensitive to that order).
+TODO: document order of things in .emacs (but maybe also fix
+`mailaprop.el` so that it's less sensitive to that order).
 
-TODO: update `mail-mode-hook` and `message-mode-hook`.
+TODO: document what to do to `mail-mode-hook` and `message-mode-hook`.
 
-TODO: document how each email address must be on its own line
+TODO: document how each email address must be on its own line in the
+      composition headers.
 
 Finding boundaries between email addresses on the same line turns out
 to be surprisingly non-trivial, so I decided to punt on the problem.

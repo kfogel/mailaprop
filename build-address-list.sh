@@ -7,7 +7,7 @@
 MAILAPROP=mailaprop.py
 
 # CHANGE THIS: Say where your file of email addresses will live.
-OUTFILE=${HOME}/private/mailaprop/email-addresses.eld
+OUTFILE=${HOME}/private/mailaprop/mailaprop-addresses.eld
 
 OUTFILE_TMP=${OUTFILE}.tmp
 > ${OUTFILE_TMP}
