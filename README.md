@@ -170,4 +170,6 @@ but below, the second one could not have been autofilled:
 
 If you rebuild your completion database while Emacs is running, you
 can reload it by running `M-x mailaprop-reload-addresses`
-interactively.
+interactively.  Note that this will clear all memoizations; mailaprop
+will be starting from scratch again, so it may be slow for a while.
+(This is fixable; I just haven't fixed it yet.)
