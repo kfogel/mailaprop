@@ -173,3 +173,5 @@ can reload it by running `M-x mailaprop-reload-addresses`
 interactively.  Note that this will clear all memoizations; mailaprop
 will be starting from scratch again, so it may be slow for a while.
 (This is fixable; I just haven't fixed it yet.)
+
+**TODO: Document about mail buffer being in company-mode.  Or fix that.**
