@@ -68,57 +68,95 @@ more.
 
 Anyway, it's too late.  By now I'm in too deep to get out.
 
-Installation instructions.
---------------------------
+Installation.
+-------------
 
-First, a high-level view:
+**Create the address database:**
 
-You run a shell script (`build-address-list.sh`), which invokes a
-Python script (`mailaprop.py`) that ingests various mbox files.  You
-told `mailaprop.py` where to find those mbox files by making light
-edits to `build-address-list.sh`.
+Edit `build-address-list.sh` in the obvious ways and run it.  It
+invokes `mailaprop.py` to ingest mbox-format files (you specified the
+mbox files when you edited `build-address-list.sh`), and produces a
+file named `mailaprop-addresses.eld`.  Put that file anywhere you
+want: it's the completion database that will be loaded into Emacs in
+the next steps.
 
-There can be as many input files as you want.  As long as they're in
-mbox format, and have email addresses waiting to be harvested in their
-message headers, they should work.
+Note that `build-address-list.sh` may take a while to run.  I harvest
+about 100,000 email addresses, and it takes about twenty minutes on my
+laptop purchased in 2010 or so.  Eventually you may want to arrange
+for `build-address-list.sh` to run automatically at some regular
+interval, e.g., nightly, so that it is constantly rebuilding your
+completion database as you accumulate new email correspondents.
 
-The result of the above is a file, 'mailaprop-addresses.eld' -- that's
-the completion database.  Your load `mailaprop.el` and run a mailaprop
-function to inhale 'mailaprop-addresses.eld'.  After that, whenever
-you are in a message composition buffer and you start typing in the
-"`To:`", "`CC:`", or "`BCC:`" header, you get the popup-style autofill
-behavior.
+**Load it into Emacs:**
 
-Details:
+Edit your .emacs or whatever your Emacs initialization file is:
 
-*TODO (2018-01-12): The rest of these instructions still need some work.*
+    ;; Tell mailaprop where the address completion database is.
+    ;; You will have to adjust this path, of course.
+    (setq mailaprop-address-file
+      (expand-file-name "~/private/mailaprop/mailaprop-addresses.eld"))
 
-Modify `build-address-list.sh` as needed; comments in that file will
-explain how.  (You may eventually want to invoke it from a cron job so
-it runs daily to rebuild your completion database, since presumbably
-your input files will always be accumulating new addresses.)
+    ;; Load the mailaprop code (likewise adjust as needed).
+    (load-file (expand-file-name "~/src/mailaprop/mailaprop.el"))
 
-Run it.  Congratulations, you've got a file full of email addresses!
+    ;; Define a `mailaprop-skip-address-fn' if you want to filter out
+    ;; some addresses.  It would be nice if I said more about that,
+    ;; but in lieu of real documentation, have look at my [.emacs](http://svn.red-bean.com/repos/kfogel/trunk/.emacs),
+    ;; searching for `kf-mailaprop-digest-drop-address` and the
+    ;; (setq mailaprop-drop-address-fn 'kf-mailaprop-digest-drop-address)
+    ;; right below it.
+    ;;
+    ;; You do not need to define a drop function.  Everything will
+    ;; work fine without it; you just might have some unwanted email
+    ;; addresses offered up for completion.
 
-Grab my [.emacs](http://svn.red-bean.com/repos/kfogel/trunk/.emacs)
-and search for "mailaprop".  You may want to write a custom
-`mailaprop-skip-address-fn` as I did.
+    ;; Load the completion database!
+    (mailaprop-load-addresses)
 
-TODO: give some idea of how long mailaprop.py will take to run
+Usage.
+------
 
-TODO: document setting `mailaprop-address-file`
+Whenever you are in a message composition buffer and you start typing
+in the `"To:"`, `"CC:"`, or `"BCC:"` header, you will get the
+popup-style autofill behavior, with the likeliest addresses at the top
+of the list.
 
-TODO: document order of things in .emacs (but maybe also fix
-`mailaprop.el` so that it's less sensitive to that order).
+Mailaprop autofill matches any substring within the address, not just
+a string at the beginning of the address.  In other words, if you have
 
-TODO: document how each email address must be on its own line in the
-      composition headers.
+    "Abilene Szymanowski" <a.szymanowski@example.com>
+    
+in your completion set, and you type "b", her address will be among
+those offered.
 
-Finding boundaries between email addresses on the same line turns out
-to be surprisingly non-trivial, so I decided to punt on the problem.
-Instead, you can only complete an address that is on its own line or
-on the same line as the header name.  Thus, both of these addresses
-could have been autofilled:
+**Mailaprop speeds up as you use it more:**
+
+Mailaprop will never delay your typing, but the first time you type a
+single letter or a very short string, it may take a few seconds after
+you pause for the autofill list to come up the first time.  Don't
+worry: the next time you type that same short string, the list will
+come up much faster (note to programmers: mailaprop does memoization).
+Once you've been composing emails in an Emacs session for a while,
+mailaprop will learn most of the common short strings and things will
+get quite speedy.  Someday I might make it remember those strings
+between sessions, but for now it only remembers within the same
+session.
+
+**Each address on its own line:**
+
+For mailaprop to work, each email address in a header must be on its
+own line.  The first address can be on the same line as the header
+name, but no address can share a line with another address.  To
+autofill on a next address in the same header, use C-j TAB (or
+whatever key combination works for you) to navigate to the appropriate
+place on the next line, and then start typing.
+
+The reason for this is that finding boundaries between email addresses
+on the same line turns out to be a surprisingly non-trivial problem.
+So I decided to punt on it, and just decided that completion only
+works on an address that is on its own line or on the same line as the
+header name.  Thus, both of these addresses could have been
+autofilled:
 
         To: J. Random <jrandom@jrandom.com>,
             Victoria O'Hara <vickyh@foo.bar>

@@ -99,7 +99,7 @@ It is initialized and populated only by `mailaprop-digest-address-data'.")
 Each list contains all the addresses that `mailaprop-get-candidates'
 would return for that candidate substring.")
 
-(defvar mailaprop-skip-address-fn nil
+(defvar mailaprop-drop-address-fn nil
   "*If non-nil, a user-defined function to decide whether to keep an address.
 When mailaprop loads email addresses in `mailaprop-digest-raw-addresses',
 this function is called once per address, with these arguments;
@@ -120,15 +120,15 @@ this function is called once per address, with these arguments;
     example, GROUP-KEY-ADDR might be \"<jrandom@example.com>\" while
     THIS-ADDR is \"Jane Random <jrandom@example.com>\".")
 
-(defvar mailaprop-skip-addresses nil
+(defvar mailaprop-drop-addresses nil
   "*A list of regular expressions to indicate what addresses to skip.
 If the combined address (like \"Jane Random <jrandom@example.com>\" if
 real name portion is present, or else \"jrandom@example.com\")
 then that address will not be included in the completion set.
 
-See `mailaprop-skip-address-fn' for a more general mechanism for
+See `mailaprop-drop-address-fn' for a more general mechanism for
 choosing which addresses to skip.  Everything provided by this list
-could be implemented in a custom `mailaprop-skip-address-fn'; this
+could be implemented in a custom `mailaprop-drop-address-fn'; this
 list is just a convenience that handles the majority of cases.")
 
 (defun mailaprop-digest-raw-addresses (raw-addresses)
@@ -155,11 +155,11 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
                           (string-equal group-key-addr addr))
                      ;; If the user says to skip it, then skip it.
                      (catch 'matched
-                       (dolist (re mailaprop-skip-addresses)
+                       (dolist (re mailaprop-drop-addresses)
                          (when (string-match-p re addr)
                            (throw 'matched t))))
-                     (when mailaprop-skip-address-fn
-                       (funcall mailaprop-skip-address-fn
+                     (when mailaprop-drop-address-fn
+                       (funcall mailaprop-drop-address-fn
                                 group-key-addr group-size addr)))
               (let* ((date (nth 1 addr-entry))
                      (sent (nth 2 addr-entry))
