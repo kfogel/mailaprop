@@ -99,18 +99,19 @@ Edit your .emacs or whatever your Emacs initialization file is:
     ;; Load the mailaprop code (likewise adjust as needed).
     (load-file (expand-file-name "~/src/mailaprop/mailaprop.el"))
 
-    ;; Define a `mailaprop-skip-address-fn' if you want to filter out
-    ;; some addresses.  It would be nice if I said more about that,
-    ;; but in lieu of real documentation, have look at my [.emacs](http://svn.red-bean.com/repos/kfogel/trunk/.emacs),
-    ;; searching for `kf-mailaprop-digest-drop-address` and the
-    ;; (setq mailaprop-drop-address-fn 'kf-mailaprop-digest-drop-address)
-    ;; right below it.
+    ;; Optionally, define a `mailaprop-skip-address-fn' if you want to
+    ;; filter out some addresses.  It would be nice if I said more
+    ;; about that, but in lieu of real documentation, have look at my
+    ;; .emacs at http://svn.red-bean.com/repos/kfogel/trunk/.emacs.
+    ;; Search for `kf-mailaprop-digest-drop-address' in there, and for
+    ;; "(setq mailaprop-drop-address-fn 'kf-mailaprop-digest-drop-address)"
+    ;; right after that function.
     ;;
-    ;; You do not need to define a drop function.  Everything will
-    ;; work fine without it; you just might have some unwanted email
-    ;; addresses offered up for completion.
+    ;; You don't need to define a drop function -- mailaprop will work
+    ;; fine without one.  It's just that you might have some unwanted 
+    ;; email addresses offered up for completion.
 
-    ;; Load the completion database!
+    ;; Load the completion database.
     (mailaprop-load-addresses)
 
 Usage.
