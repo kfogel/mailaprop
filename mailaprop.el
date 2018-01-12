@@ -314,3 +314,7 @@ If there is score corresponding to ADDR, return zero."
 
 (when (boundp 'company-backends)
   (add-to-list 'company-backends 'company-mailaprop-backend))
+
+(defun mailaprop-hook () (company-mode))
+(add-hook 'message-mode-hook 'mailaprop-hook)
+(add-hook 'mail-mode-hook 'mailaprop-hook)

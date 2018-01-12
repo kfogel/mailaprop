@@ -83,13 +83,11 @@ mbox format, and have email addresses waiting to be harvested in their
 message headers, they should work.
 
 The result of the above is a file, 'mailaprop-addresses.eld' -- that's
-the completion database.  Your .emacs loads `mailaprop.el`, and runs
-some mailaprop functions that inhale 'mailaprop-addresses.eld'.
-
-You'll also add some hooks to `mail-mode-hooks` and
-`message-mode-hooks` so that when you are in a message composition
-buffer and you start typing in the `To:`, `CC:`, or `BCC:` header, you
-get the popup-style autofill behavior.
+the completion database.  Your load `mailaprop.el` and run a mailaprop
+function to inhale 'mailaprop-addresses.eld'.  After that, whenever
+you are in a message composition buffer and you start typing in the
+"`To:`", "`CC:`", or "`BCC:`" header, you get the popup-style autofill
+behavior.
 
 Details:
 
@@ -112,8 +110,6 @@ TODO: document setting `mailaprop-address-file`
 
 TODO: document order of things in .emacs (but maybe also fix
 `mailaprop.el` so that it's less sensitive to that order).
-
-TODO: document what to do to `mail-mode-hook` and `message-mode-hook`.
 
 TODO: document how each email address must be on its own line in the
       composition headers.
