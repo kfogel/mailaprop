@@ -1,15 +1,17 @@
 mailaprop: modern autofill for email addresses in GNU Emacs.
 ============================================================
 
-*TODO (2018-01-11): This documentation is a work in progress.*
-
 Overview
 --------
 
 Mailaprop provides popup-style email address completion when composing
-mail in Emacs.  Here's a [video of mailaprop in
-action](mailaprop-example-session.webm) (click through and then click
-"View Raw").
+mail in Emacs:
+
+<p align="center">
+  <a href="https://player.vimeo.com/video/250746180">
+    <img alt="Mailaprop Example Session" src="mailaprop-example-session.png" width="75%" />
+  </a>
+</p>
 
 As you start typing an address, a popup window offers the possible
 completions so far, prioritized according to how often the addresses
