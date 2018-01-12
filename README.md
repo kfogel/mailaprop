@@ -19,7 +19,7 @@ appear in your email; sent-to addresses are weighted more highly than
 received-from addresses.  Each address also shows the date it was last
 interacted with (sent to or received from), and its mailaprop score.
 
-Almost always, once you've typed a few letters the top candidate
+Almost always, after you've typed a few letters the top candidate
 address will be the one you want -- you just hit Return to choose it.
 Otherwise, you can use the arrow keys to navigate up and down the
 list, or type more letters to narrow to fewer candidates.
@@ -40,14 +40,15 @@ tracker: kfogel {_AT_} red-bean.com.
 How long does it take to set up?
 --------------------------------
 
-Probably an hour or two, if you are experienced with basic scripting
-and are comfortable making minor changes to your ~/.emacs (or wherever
-you keep your Emacs initialization code).
+About an hour, if you are experienced with basic scripting and are
+comfortable making minor changes to your ~/.emacs (or wherever you
+keep your Emacs initialization code).
 
 If you're new to this kind of thing, it could take a day or more to
-set up.  If neither of these paragraphs made sense to you, it could
-take an arbitrary amount of time, and you might want to step slowly
-away from the computer to reconsider various choices in your life.
+set up.  If neither of these paragraphs made sense to you, then it
+could take an arbitrary amount of time, and you might want to step
+slowly away from the computer to reconsider various choices in your
+life.
 
 What about BBDB?  Doesn't it already do this?
 ---------------------------------------------
