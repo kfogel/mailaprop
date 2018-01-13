@@ -74,6 +74,22 @@ Anyway, it's too late.  By now I'm in too deep to get out.
 Installation.
 -------------
 
+**Get Company Mode:**
+
+Mailaprop relies on the excellent [Company
+Mode](http://company-mode.github.io/) completion framework ("company"
+stands for "complete anything").  Company Mode is quite mature and is
+part of [GNU ELPA](http://elpa.gnu.org/), so you can install it easily
+via `M-x list-packages`.
+
+If you prefer to install Company Mode from [development
+sources](https://github.com/company-mode/company-mode/), then you
+would load it using some snippet like this:
+
+    (let ((local-company (expand-file-name "~/src/company-mode")))
+      (add-to-list 'load-path local-company)
+      (require 'company))
+
 **Create the address database:**
 
 Edit `build-address-list.sh` in the obvious ways and run it.  It
@@ -176,4 +192,28 @@ reload it by running `M-x mailaprop-reload-addresses` interactively.
 The memoization cache will be rebuilt along with the raw addresses, so
 you won't lose any speed.
 
-**TODO: Document about mail buffer being in company-mode.  Or fix that.**
+**"Company" minor mode active in message composition buffers:**
+
+Mailaprop relies on [Company Mode](http://company-mode.github.io/),
+and modifies `message-mode-hook` and `mail-mode-hook` to put email
+composition buffers into Company minor mode.
+
+Ideally, mailaprop would restrict itself to the email recipient
+headers, and not put the entire buffer into Company minor mode unless
+the user had set that up independently of mailaprop.  However, I
+haven't yet learned Company well enough to do that.
+
+What this means in practice is that as you're typing in the body of
+your message, if you pause after a keystroke you'll get Company's
+dynamic prefix-based completion, starting from wherever you are in the
+word you were typing.
+
+When I realized that I kind of liked this behavior, and that Company
+mode was proving useful and wasn't slowing me down (because it's
+beautifully asynchronous), I decided not to search too hard for a way
+to turn it off when not in the recipient headers.
+
+However, others may feel differently about it.  I'd certainly welcome
+a patch to fix mailaprop so that the choice to get autofill on email
+addresses is cleanly separated from the choice to have dynamic word
+completion in the rest of the buffer.

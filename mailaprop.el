@@ -17,29 +17,7 @@
 
 ;;; Home page: https://github.com/kfogel/mailaprop/
 
-;; TODO: 
-;;
-;;  - Finish the documentation.
-;;  - Maybe get out of company-mode after leaving mail headers.
-;;
-;; Resources referred to while developing this:
-;; 
-;;  - https://www.emacswiki.org/emacs/CompanyMode
-;;  - https://github.com/company-mode/company-mode/wiki/Writing-backends
-;;  - http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend
-
 (require 'cl-lib)
-
-;; TODO: This isn't part of standard Emacs yet, right?  I may have to
-;; finally learn how to use ELPA, so I can document for others how to
-;; get company-mode.  https://github.com/company-mode/company-mode/ is
-;; where I get it from, for what it's worth, and I load it with this:
-;;
-;;   (let ((local-company (expand-file-name "~/src/company-mode")))
-;;     (when (file-exists-p local-company)
-;;       (add-to-list 'load-path local-company)
-;;       (require 'company)))
-;;
 (require 'company)
 
 ;; The user must set this.
@@ -293,6 +271,12 @@ If there is no date corresponding to ADDR, return the empty string."
 If there is score corresponding to ADDR, return zero."
   (or (gethash addr mailaprop-score-dict) 0))
 
+;; Thanks to Austin Bingham for his excellent article on writing
+;; Company Mode backends:
+;; http://sixty-north.com/blog/writing-the-simplest-emacs-company-mode-backend
+;; See also:
+;; https://www.emacswiki.org/emacs/CompanyMode
+;; https://github.com/company-mode/company-mode/wiki/Writing-backends
 (defun company-mailaprop-backend (command &optional arg &rest ignored)
   (interactive (list 'interactive))
   (cl-case command
