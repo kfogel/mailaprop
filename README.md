@@ -1,5 +1,5 @@
-mailaprop: modern autofill for email addresses in GNU Emacs.
-============================================================
+mailaprop: modern autofill behavior for email addresses in GNU Emacs.
+=====================================================================
 
 Overview
 --------
