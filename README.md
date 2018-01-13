@@ -13,14 +13,15 @@ when you're composing messages in Emacs:
   </a>
 </p>
 
-As you start typing an address, a popup window offers the possible
-matches so far.  (The matches are ordered based on how often and how
-recently those addresses occurred in your email stream; sending to an
-address counts more heavily than receiving from it.)  To the right of
-each address, mailaprop shows the date you last interacted with it,
-that is, the most recent date you sent to or received mail from it.
-Just for fun, the address's raw mailaprop score is shown to the right
-of that, in parentheses.
+As you start typing a name or an address, a popup window offers the
+possible matches so far.  The matches are ordered based on how often
+and how recently those addresses occurred in your email stream;
+sending to an address counts more heavily than receiving from it.
+
+To the right of each address, mailaprop shows the date you last
+interacted with it, that is, the most recent date you sent to or
+received mail from it.  Just for fun, the address's raw mailaprop
+score is shown to the right of that, in parentheses.
 
 Usually you only need to type a few letters for the top candidate to
 be the one you want, at which point you just hit Return to choose it.
