@@ -43,7 +43,7 @@ This variable must be set before `mailaprop-load-addresses' is called.")
   "Read and return the lisp expression in `mailaprop-address-file'."
   (mailaprop-read-sexp-from-file mailaprop-address-file))
 
-(defvar mailaprop-addresses (mailaprop-inhale-addresses)
+(defvar mailaprop-addresses nil
   "All email addresses, with their most-recently-seen dates and their scores.  
 Each element is of the form (ADDRESS DATE SCORE), where ADDRESS is a
 string (often \"Full Name <address@example.com>\"), DATE is a string
