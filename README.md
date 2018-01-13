@@ -15,8 +15,8 @@ when you're composing messages in Emacs:
 
 As you start typing a name or an address, a popup window offers the
 possible matches so far.  The matches are ordered based on how often
-and how recently those addresses occurred in your email stream;
-sending to an address counts more heavily than receiving from it.
+and how recently those addresses occur in all your email, with sending
+to an address counting for more than receiving from it.
 
 To the right of each address, mailaprop shows the date you last
 interacted with it, that is, the most recent date you sent to or
