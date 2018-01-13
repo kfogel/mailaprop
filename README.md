@@ -174,11 +174,10 @@ whatever key combination works for you) to navigate to the appropriate
 place on the next line, and then start typing.
 
 The reason for this is that finding boundaries between email addresses
-on the same line turns out to be a surprisingly non-trivial problem.
-So I decided to punt on it, and just decided that completion only
-works on an address that is on its own line or on the same line as the
-header name.  Thus, both of these addresses could have been
-autofilled:
+on the same line turns out to be harder than I expected.  So I decided
+to punt on it, and just decided that completion only works on an
+address that is on its own line or on the same line as the header
+name.  Thus, both of these addresses could have been autofilled:
 
         To: J. Random <jrandom@jrandom.com>,
             Victoria O'Hara <vickyh@foo.bar>
@@ -186,6 +185,10 @@ autofilled:
 but below, the second one could not have been autofilled:
 
         To: J. Random <jrandom@jrandom.com>, Victoria O'Hara <vickyh@foo.bar>
+
+This is only a minor bug, since the workaround is so easy and I tend
+to want my addresses on their own lines anyway.  Still, I would
+welcome a patch to fix this.
 
 **Reloading the completion database:**
 
