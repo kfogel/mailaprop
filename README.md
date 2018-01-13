@@ -101,11 +101,12 @@ want: it's the completion database that will be loaded into Emacs in
 the next steps.
 
 Note that `build-address-list.sh` may take a while to run.  I harvest
-about 100,000 email addresses, and it takes about twenty minutes on my
-laptop purchased in 2010 or so.  Eventually you may want to arrange
-for `build-address-list.sh` to run automatically at some regular
-interval, e.g., nightly, so that it is constantly rebuilding your
-completion database as you accumulate new email correspondents.
+approximately 100,000 email addresses from approximately a million
+individual mbox files, and it takes about twenty minutes on my laptop
+purchased in 2010 or so.  Eventually you may want to arrange for
+`build-address-list.sh` to run automatically at some regular interval,
+e.g., nightly, so that it is constantly rebuilding your completion
+database as you accumulate new email correspondents.
 
 **Load it into Emacs:**
 
