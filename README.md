@@ -120,7 +120,7 @@ Edit your .emacs or whatever your Emacs initialization file is:
     ;; Load the mailaprop code (likewise adjust as needed).
     (load-file (expand-file-name "~/src/mailaprop/mailaprop.el"))
 
-    ;; Optionally, define a `mailaprop-skip-address-fn' if you want to
+    ;; Optionally, define a `mailaprop-drop-address-fn' if you want to
     ;; filter out some addresses.  It would be nice if I said more
     ;; about that, but in lieu of real documentation, have look at my
     ;; .emacs at http://svn.red-bean.com/repos/kfogel/trunk/.emacs.
