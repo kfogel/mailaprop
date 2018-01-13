@@ -171,10 +171,9 @@ but below, the second one could not have been autofilled:
 
 **Reloading the completion database:**
 
-If you rebuild your completion database while Emacs is running, you
-can reload it by running `M-x mailaprop-reload-addresses`
-interactively.  Note that this will clear all memoizations; mailaprop
-will be starting from scratch again, so it may be slow for a while.
-(This is fixable; I just haven't fixed it yet.)
+If you rebuild your autofill database while Emacs is running, you can
+reload it by running `M-x mailaprop-reload-addresses` interactively.
+The memoization cache will be rebuilt along with the raw addresses, so
+you won't lose any speed.
 
 **TODO: Document about mail buffer being in company-mode.  Or fix that.**

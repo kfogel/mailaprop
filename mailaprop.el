@@ -175,9 +175,15 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
   "Load (or reload) the email address completion table."
   (interactive)
   (if (file-exists-p mailaprop-address-file)
-      (progn
+      (let ((memoized-strings ()))
+        (message "Reading addresses and rebuilding autofill cache...")
+        (maphash (lambda (key ignored-val)
+                   (setq memoized-strings (cons key memoized-strings)))
+                 mailaprop-memoize-dict)
         (mailaprop-digest-raw-addresses (mailaprop-inhale-addresses))
-        (clrhash mailaprop-memoize-dict))
+        (clrhash mailaprop-memoize-dict)
+        (dolist (str memoized-strings) (mailaprop-get-candidates str))
+        (message "Reading addresses and rebuilding autofill cache...done"))
     (error "You must set `mailaprop-address-file'.")))
 (defalias 'mailaprop-reload-addresses 'mailaprop-load-addresses)
 
