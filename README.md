@@ -4,8 +4,8 @@ mailaprop: modern autofill for email addresses in GNU Emacs.
 Overview
 --------
 
-Mailaprop provides popup-style email address completion when composing
-mail in Emacs:
+Mailaprop provides modern, popup-style autofill of email addresses
+when you're composing messages in Emacs:
 
 <p align="center">
   <a href="https://player.vimeo.com/video/250746180">
@@ -14,22 +14,25 @@ mail in Emacs:
 </p>
 
 As you start typing an address, a popup window offers the possible
-completions so far, prioritized according to how often the addresses
-appear in your email; sent-to addresses are weighted more highly than
-received-from addresses.  Each address also shows the date it was last
-interacted with (sent to or received from), and its mailaprop score.
+matches so far.  (The matches are ordered based on how often and how
+recently those addresses occurred in your email stream; sending to an
+address counts more heavily than receiving from it.)  To the right of
+each address, mailaprop shows the date you last interacted with it,
+that is, the most recent date you sent to or received mail from it.
+Just for fun, the address's raw mailaprop score is shown to the right
+of that, in parentheses.
 
-Almost always, after you've typed a few letters the top candidate
-address will be the one you want -- you just hit Return to choose it.
-Otherwise, you can use the arrow keys to navigate up and down the
-list, or type more letters to narrow to fewer candidates.
+Usually you only need to type a few letters for the top candidate to
+be the one you want, at which point you just hit Return to choose it.
+Otherwise, you can use the arrow keys to navigate in the list, or type
+more letters to narrow down to fewer candidates.
 
-This is basically the same autofill feature you're probably used to
-having in your browser when you interact with the sorts of online
-services that send proprietary Javascript to your tabs.  Unlike them,
-however, this package is entirely free software and operates on data
-that is all stored locally.  You shouldn't need to hand over your
-social graph to billionaires just to get decent autofill behavior.
+This is basically the same autofill feature you get in your browser
+when you interact with the sorts of online services that send
+proprietary Javascript to your tabs.  Unlike those sites, however,
+this package is entirely free software and operates on data that is
+all stored locally.  You shouldn't need to hand over your social graph
+to billionaires just to get decent autofill behavior.
 
 Speaking of which, you don't have to use any proprietary Javascript to
 interact with this project.  You can use plain git to clone the
@@ -40,12 +43,12 @@ tracker: kfogel {_AT_} red-bean.com.
 How long does it take to set up?
 --------------------------------
 
-About an hour, if you are experienced with basic scripting and are
-comfortable making minor changes to your ~/.emacs (or wherever you
-keep your Emacs initialization code).
+Less than an hour, if you are comfortable with basic scripting and
+with making some simple changes to your ~/.emacs (or wherever you keep
+your Emacs initialization code).
 
 If you're new to this kind of thing, it could take a day or more to
-set up.  If neither of these paragraphs made sense to you, then it
+set up.  And if neither of these paragraphs made sense to you, then it
 could take an arbitrary amount of time, and you might want to step
 slowly away from the computer to reconsider various choices in your
 life.
