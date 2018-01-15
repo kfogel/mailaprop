@@ -9,7 +9,7 @@ when you're composing messages in Emacs:
 
 <p align="center">
   <a href="https://player.vimeo.com/video/250746180">
-    <img alt="Mailaprop Example Session" src="mailaprop-example-session.png" width="75%" />
+    <img alt="Mailaprop Example Session (raw video file is here: mailaprop-example-session.webm)" src="mailaprop-example-session.png" width="75%" />
   </a>
 </p>
 
