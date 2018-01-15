@@ -143,7 +143,7 @@ Edit your .emacs or whatever your Emacs initialization file is:
     ;; function on each address, to decide whether or not to exclude
     ;; that address from being offered for autofill.  See its doc
     ;; string in mailaprop.el for more details, and search for
-    ;; `kf-mailaprop-digest-drop-address-fn' in my own .emacs at
+    ;; `kf-mailaprop-drop-address-fn' in my own .emacs at
     ;; http://svn.red-bean.com/repos/kfogel/trunk/.emacs for an
     ;; example of how to write a `mailaprop-drop-address-fn'.
     ;; 
