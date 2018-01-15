@@ -48,11 +48,11 @@ Less than an hour, if you are comfortable with basic scripting and
 with making some simple changes to your ~/.emacs (or wherever you keep
 your Emacs initialization code).
 
-If you're new to this kind of thing, it could take a day or more to
-set up.  And if neither of these paragraphs made sense to you, then it
-could take an arbitrary amount of time, and you might want to step
-slowly away from the computer to reconsider various choices in your
-life.
+If you're new to this kind of thing but always wanted to try, then
+mailaprop might take several hours to set up.  And if neither of these
+paragraphs made sense to you, then it could take an arbitrary amount
+of time, and you might want to step slowly away from the computer to
+reconsider various choices in your life.
 
 What about BBDB?  Doesn't it already do this?
 ---------------------------------------------
