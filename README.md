@@ -38,8 +38,8 @@ to billionaires just to get decent autofill behavior.
 Speaking of which, you don't have to use any proprietary Javascript to
 interact with this project.  You can use plain git to clone the
 repository from GitHub at https://github.com/kfogel/mailaprop.git, and
-I'll happily take bug reports by email instead of via the GitHub issue
-tracker: kfogel {_AT_} red-bean.com.
+I'll happily take bug reports and patches by email instead of via the
+GitHub issue tracker: kfogel {_AT_} red-bean.com.
 
 How long does it take to set up?
 --------------------------------
