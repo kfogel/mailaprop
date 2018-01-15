@@ -108,6 +108,15 @@ purchased in 2010 or so.  Eventually you may want to arrange for
 e.g., nightly, so that it is constantly rebuilding your completion
 database as you accumulate new email correspondents.
 
+(In the future, mailaprop might be able to take inputs from a wider
+variety of sources than just mbox files.  For example, it would be
+nice if mailaprop could read address information from a
+[notmuch](https://notmuchmail.org/) database, and there's some
+[discussion](https://lists.gnu.org/archive/html/emacs-tangents/2018-01/threads.html#00004)
+about using John Wiegley's
+[gnus-harvest.el](https://github.com/jwiegley/dot-emacs/blob/master/lisp/gnus-harvest/gnus-harvest.el)
+to provide inputs to mailaprop.)
+
 **Load it into Emacs:**
 
 Edit your .emacs or whatever your Emacs initialization file is:
