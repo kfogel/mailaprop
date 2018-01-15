@@ -248,6 +248,6 @@ beautifully asynchronous), I decided not to search too hard for a way
 to turn it off when not in the recipient headers.
 
 However, others may feel differently about it.  I'd certainly welcome
-a patch to fix mailaprop so that the choice to get autofill on email
-addresses is cleanly separated from the choice to have dynamic word
-completion in the rest of the buffer.
+a patch to fix mailaprop so that the choice to have autofill on email
+addresses in headers is cleanly separated from the choice to have
+dynamic word completion in the rest of the buffer.
