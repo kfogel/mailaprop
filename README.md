@@ -120,19 +120,48 @@ Edit your .emacs or whatever your Emacs initialization file is:
     ;; Load the mailaprop code (likewise adjust as needed).
     (load-file (expand-file-name "~/src/mailaprop/mailaprop.el"))
 
-    ;; Optionally, define a `mailaprop-drop-address-fn' if you want to
-    ;; filter out some addresses.  It would be nice if I said more
-    ;; about that, but in lieu of real documentation, have look at my
-    ;; .emacs at http://svn.red-bean.com/repos/kfogel/trunk/.emacs.
-    ;; Search for `kf-mailaprop-digest-drop-address' in there, and for
-    ;; "(setq mailaprop-drop-address-fn 'kf-mailaprop-digest-drop-address)"
-    ;; right after that function.
+    ;; Optionally, set `mailaprop-drop-address-regexps' and/or define
+    ;; a `mailaprop-drop-address-fn', to filter out some addresses
+    ;; that you don't want offered up for autofill.
+    ;;    
+    ;; Using `mailaprop-drop-address-regexps' is simple.  It's just a
+    ;; list of regular expressions: if an address matches one of the
+    ;; regexps in the list, that address is not offered for autofill.
+    ;; 
+    ;; Each regexp can include the real name portion but is not
+    ;; required to.  For example:
     ;;
-    ;; You don't need to define a drop function -- mailaprop will work
-    ;; fine without one.  It's just that you might have some unwanted 
-    ;; email addresses offered up for completion.
+    ;;   (setq mailaprop-drop-address-regexps
+    ;;     (list
+    ;;       (regexp-quote "some-undesired-address@example.com")
+    ;;       (regexp-quote "another-undesired-address@example.com")
+    ;;       (regexp-quote "My Nemesis <m.nemesis@example.com>")
+    ;;       ))
+    ;; 
+    ;; `mailaprop-drop-address-fn' is a more general mechanism for
+    ;; skipping addresses: it allows you to run a user-defined
+    ;; function on each address, to decide whether or not to exclude
+    ;; that address from being offered for autofill.  See its doc
+    ;; string in mailaprop.el for more details, and search for
+    ;; `kf-mailaprop-digest-drop-address-fn' in my own .emacs at
+    ;; http://svn.red-bean.com/repos/kfogel/trunk/.emacs for an
+    ;; example of how to write a `mailaprop-drop-address-fn'.
+    ;; 
+    ;; Note that a `mailaprop-drop-address-fn' should always be
+    ;; defined with `&rest ignored' at end of the argument list,
+    ;; because future versions of mailaprop may pass more arguments
+    ;; to it than the current version does:
+    ;; 
+    ;;  (defun my-drop-addr-fn (group-key group-size this-addr &rest ignored)
+    ;;    ...)
+    ;; 
+    ;;  (setq mailaprop-drop-address-fn 'my-drop-addr-fn)
+    ;; 
+    ;; Both filtering mechanisms, `mailaprop-drop-address-regexps' and
+    ;; `mailaprop-drop-address-fn', are completely optional; mailaprop
+    ;; will work fine if you don't use them at all.
 
-    ;; Load the completion database.
+    ;; Load the autofill database.
     (mailaprop-load-addresses)
 
 Usage.

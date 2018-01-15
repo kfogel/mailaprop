@@ -79,16 +79,23 @@ Each list contains all the addresses that `mailaprop-get-candidates'
 would return for that candidate substring.")
 
 (defvar mailaprop-drop-address-fn nil
-  "*If non-nil, a user-defined function to decide whether to keep an address.
+  "*If non-nil, a user-defined function to decide whether to drop an address.
+The function returns non-nil iff the given address should be dropped.
+
+To be effecive, this variable must be set to that function before
+`mailaprop-load-addresses' is called, because unwanted addresses are
+filtered out while the autofill database is being loaded, not later when
+autofill is being performed interactively.  Here's how it works:
+
 When mailaprop loads email addresses in `mailaprop-digest-raw-addresses',
 this function is called once per address, with these arguments;
 
   GROUP-KEY-ADDR: (string) The all lower-case email address that all
     the addresses in this group have in common.  Note that this
     address is always present as a member of the group, even if
-    no other addresses with full names are present.  In other
+    no other addresses with real names are present.  In other
     words, at least once per group, the function will be called
-    with GROUP-KEY-ADDR and ADDR having the same value.
+    with GROUP-KEY-ADDR and THIS-ADDR having the same value.
 
   GROUP-SIZE: (integer) The number of addresses in this group.  For
     example, if a group has \"Jane Random <jrandom@example.com>\"
@@ -97,18 +104,38 @@ this function is called once per address, with these arguments;
 
   THIS-ADDR: (string) The address currently being considered.  For
     example, GROUP-KEY-ADDR might be \"<jrandom@example.com>\" while
-    THIS-ADDR is \"Jane Random <jrandom@example.com>\".")
+    THIS-ADDR is \"Jane Random <jrandom@example.com>\".
 
-(defvar mailaprop-drop-addresses nil
-  "*A list of regular expressions to indicate what addresses to skip.
-If the combined address (like \"Jane Random <jrandom@example.com>\" if
-real name portion is present, or else \"jrandom@example.com\")
-then that address will not be included in the completion set.
+When this function returns non-nil, mailaprop just skips THIS-ADDR,
+that is, does not include THIS-ADDR in the autofill database.
+
+This function should always be defined with `&rest ignored' at end of
+the argument list, because future versions of mailaprop may pass more
+arguments to it than the current version does:
+
+  (defun my-mailaprop-drop-address-fn (gkey gsize this-addr &rest ignored)
+    ...)
+")
+
+(defvar mailaprop-drop-address-regexps nil
+  "*A list of regular expressions to indicate what addresses to drop.
+Each full address (including real name portion, if any) is matched
+against each regexp.  For example, \"jrandom@example\\\\.com\" would match
+both itself and \"Jane Random <jrandom@example\\\\.com>\", but the latter
+would not match the former.
+
+To be effective, this list must be set before `mailaprop-load-addresses'
+is called, because unwanted addresses are filtered out while the
+autofill database is being loaded, not later when autofill is being
+performed interactively.
+
+Reminder: use `regexp-quote' to get literal string matching when
+that's what you want.
 
 See `mailaprop-drop-address-fn' for a more general mechanism for
 choosing which addresses to skip.  Everything provided by this list
 could be implemented in a custom `mailaprop-drop-address-fn'; this
-list is just a convenience that handles the majority of cases.")
+list is just a convenience to handle the majority of cases.")
 
 (defun mailaprop-digest-raw-addresses (raw-addresses)
   "Digest RAW-ADDRESSES to create `mailaprop-addresses'.
@@ -134,7 +161,7 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
                           (string-equal group-key-addr addr))
                      ;; If the user says to skip it, then skip it.
                      (catch 'matched
-                       (dolist (re mailaprop-drop-addresses)
+                       (dolist (re mailaprop-drop-address-regexps)
                          (when (string-match-p re addr)
                            (throw 'matched t))))
                      (when mailaprop-drop-address-fn
