@@ -85,7 +85,9 @@ in-memory database `mailaprop-addresses'.")
   "All email addresses, with their most-recently-seen dates and their scores.  
 Each element is of the form (ADDRESS DATE SCORE), where ADDRESS is a
 string (often \"Full Name <address@example.com>\"), DATE is a string
-(like \"1970 Jan 01\"), and SCORE is an integer.
+(like \"1970 Jan 01\"), and SCORE is an integer indicating how this
+address should be ranked relative to other autofill candidates -- the
+higher the SCORE, the higher the rank.
 Normally, only `mailaprop-load-addresses' creates this list.")
 
 ;; Accessors for the address-entry elements in `mailaprop-addresses'.
