@@ -72,6 +72,16 @@ more.
 
 Anyway, it's too late.  By now I'm in too deep to get out.
 
+(Mailaprop has also [been
+compared](https://lists.gnu.org/archive/html/emacs-tangents/2018-01/msg00007.html)
+to
+[ecomplete.el](http://git.savannah.gnu.org/cgit/emacs.git/tree/lisp/ecomplete.el),
+but I think ecomplete doesn't have a way to ingest legacy email
+addresses nor a scoring algorithm to put the most likely autofill
+candidates near the top.  Discussion is [under
+way](https://lists.gnu.org/archive/html/emacs-tangents/2018-01/msg00009.html)
+to determine whether these conjectures are accurate.)
+
 Installation.
 -------------
 
