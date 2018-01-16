@@ -145,6 +145,7 @@ Edit your .emacs or whatever your Emacs initialization file is:
     ;;       (regexp-quote "some-undesired-address@example.com")
     ;;       (regexp-quote "another-undesired-address@example.com")
     ;;       (regexp-quote "My Nemesis <m.nemesis@example.com>")
+    ;;       "^Uncle Fester .*" ; never want to email Uncle Fester
     ;;       ))
     ;; 
     ;; `mailaprop-drop-address-fn' is a more general mechanism for
@@ -157,7 +158,7 @@ Edit your .emacs or whatever your Emacs initialization file is:
     ;; example of how to write a `mailaprop-drop-address-fn'.
     ;; 
     ;; Note that a `mailaprop-drop-address-fn' should always be
-    ;; defined with `&rest ignored' at end of the argument list,
+    ;; defined with `&rest ignored' at end of the parameter list,
     ;; because future versions of mailaprop may pass more arguments
     ;; to it than the current version does:
     ;; 
