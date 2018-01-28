@@ -378,3 +378,5 @@ If there is score corresponding to ADDR, return zero."
 (defun mailaprop-hook () (company-mode))
 (add-hook 'message-mode-hook 'mailaprop-hook)
 (add-hook 'mail-mode-hook 'mailaprop-hook)
+
+(provide 'mailaprop)
