@@ -182,7 +182,8 @@ Edit your .emacs or whatever your Emacs initialization file is:
     ;; will work fine if you don't use them at all.
 
     ;; Load the autofill database.
-    (mailaprop-load-addresses)
+    (when (featurep 'mailaprop)
+      (mailaprop-load-addresses))
 
 Usage.
 ------
