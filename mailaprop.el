@@ -210,8 +210,8 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
               (let* ((date (nth 1 addr-entry))
                      (sent (nth 2 addr-entry))
                      (recv (nth 3 addr-entry))
+                     ;; Sending to counts twice as much as receiving from.
                      (score (+ (* sent 2) recv)))
-                ;; A sent-to count counts twice as much as a received count.
                 (setq lst (cons (list addr date score) lst))
                 (puthash addr date mailaprop-date-dict)
                 (puthash addr score mailaprop-score-dict))))
