@@ -223,7 +223,7 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
   (if (file-exists-p mailaprop-address-file)
       (let ((memoized-strings ()))
         (message 
-         "Reading mailaprop addresses and rebuilding autofill cache...")
+         "Reading addresses and rebuilding mailaprop autofill data...")
         (maphash (lambda (key ignored-val)
                    (setq memoized-strings (cons key memoized-strings)))
                  mailaprop-memoize-dict)
@@ -231,7 +231,7 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
         (clrhash mailaprop-memoize-dict)
         (dolist (str memoized-strings) (mailaprop-get-candidates str))
         (message 
-         "Reading mailaprop addresses and rebuilding autofill cache...done"))
+         "Reading addresses and rebuilding mailaprop autofill data...done"))
     (error "You must set `mailaprop-address-file'.")))
 (defalias 'mailaprop-reload-addresses 'mailaprop-load-addresses)
 
