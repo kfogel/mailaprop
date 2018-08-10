@@ -113,7 +113,7 @@ It is initialized and populated only by `mailaprop-digest-address-data'.")
   "Hash table mapping addresses to score strings, for annotations.
 It is initialized and populated only by `mailaprop-digest-address-data'.")
 
-(defconst mailaprop-candidate-cache (make-hash-table :test 'equal)
+(defconst mailaprop-candidates-cache (make-hash-table :test 'equal)
   "Dictionary mapping candidate substrings to lists of addresses.
 Each list contains all the addresses that `mailaprop-get-candidates'
 would return for that candidate substring.")
@@ -226,9 +226,9 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
          "Reading addresses and rebuilding mailaprop autofill data...")
         (maphash (lambda (key ignored-val)
                    (setq memoized-strings (cons key memoized-strings)))
-                 mailaprop-candidate-cache)
+                 mailaprop-candidates-cache)
         (mailaprop-digest-raw-addresses (mailaprop-ingest-addresses))
-        (clrhash mailaprop-candidate-cache)
+        (clrhash mailaprop-candidates-cache)
         (dolist (str memoized-strings) (mailaprop-get-candidates str))
         (message 
          "Reading addresses and rebuilding mailaprop autofill data...done"))
@@ -278,7 +278,7 @@ In that case, it should still work; hence this function."
 
 (defun mailaprop-get-candidates (substr)
   "Return a list of candidate completions for SUBSTR."
-  (or (gethash substr mailaprop-candidate-cache nil)
+  (or (gethash substr mailaprop-candidates-cache nil)
       ;; If it wasn't memoized, then build, memoize, and return it.
       (let ((lst ())
             (case-fold-search t))
@@ -329,7 +329,7 @@ In that case, it should still work; hence this function."
                                    t)
                                   (t
                                    nil)))))
-                 mailaprop-candidate-cache))))
+                 mailaprop-candidates-cache))))
 
 (defun mailaprop-find-date (addr)
   "Return the date (as a string) corresponding to ADDR.
