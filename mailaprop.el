@@ -240,7 +240,10 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
 Ordinarily, you wouldn't use this, because you'd be using the
 `company-mode'-style tooltip completion instead.  But maybe for
 some reason you're old-school and prefer to do TAB-based completion.
-In that case, it should still work; hence this function."
+In that case, it should still work; hence this function.
+
+Note that this is quite different from `mailaprop-complete', which is
+for trying out completions outside email headers."
   (interactive "*")
   (let* ((completion-ignore-case t)
          (opoint (point))
@@ -375,6 +378,61 @@ If there is score corresponding to ADDR, return zero."
 (when (boundp 'company-backends)
   (add-to-list 'company-backends 'company-mailaprop-backend))
 
+
+;;; Using mailaprop elsewhere than in email headers. ;;;
+
+(defun mailaprop-complete (&optional str)
+  "Interactively complete STR against known email contacts."
+  (interactive)
+  ;; Don't do this in the interactive form because we want to be able
+  ;; to be invoked with or without an argument.
+  (let ((completion-ignore-case t))
+    (completing-read "Candidate contact: " mailaprop-addresses nil t str "")))
+
+(defun mailaprop-display-something-maybe-big (contents &optional title)
+  "Display string CONTENTS in a buffer named TITLE.
+This is copied from `kf-display-something-maybe-big' in
+https://svn.red-bean.com/repos/kfogel/trunk/.emacs.  That code
+hasn't been packaged up in a library, and doing so wouldn't be
+worth it to avoid just this one duplication."
+  (let ((buf (get-buffer-create (or title "*Mailaprop Stuff*")))
+        (win nil)
+        (lines nil))
+    (save-excursion
+      (set-buffer buf)
+      (erase-buffer)
+      (insert contents)
+      (goto-char (point-min))
+      (setq lines (count-lines (point-min) (point-max)))
+    (setq win (display-buffer buf))
+    (when (> lines (window-text-height win))
+      (select-window win)))))
+
+(defun mailaprop-matches (str &optional parg)
+  "Display all email contacts matching STR (regexp iff prefix arg).
+Return the list of matching contacts"
+  (interactive "sSearch email contacts: \nP")
+  (let ((matches ())
+        (case-fold-search nil))
+    (mapcar
+     (lambda (elt)
+       (let ((candidate (mailaprop-ae-get-addr elt)))
+         (if (string-match (if parg str (regexp-quote str)) candidate)
+             (setq matches (cons candidate matches)))))
+     mailaprop-addresses)
+    ;; Uniquify the list.
+    (let ((unique-matches ()))
+      (while matches
+        (when (and (car matches) (not (member (car matches) unique-matches)))
+          (setq unique-matches (cons (car matches) unique-matches)))
+        (setq matches (cdr matches)))
+      (setq matches unique-matches))
+    ;; Display it.
+    (mailaprop-display-something-maybe-big
+     (mapconcat (lambda (x) x) matches "\n"))
+    matches))
+
+
 (defun mailaprop-hook () (company-mode))
 (add-hook 'message-mode-hook 'mailaprop-hook)
 (add-hook 'mail-mode-hook 'mailaprop-hook)
