@@ -207,7 +207,7 @@ Mailaprop will never delay your typing, but the first time you type a
 single letter or a very short string, it may take a few seconds after
 you pause for the autofill list to come up.  Don't
 worry: the next time you type that same short string, the list will
-come up much faster (note to programmers: mailaprop uses memoization).
+come up much faster (memo to programmers: mailaprop uses memoization).
 Once you've been composing emails in an Emacs session for a while,
 mailaprop will learn most of the common short strings and things will
 get quite speedy.  Someday I might make it remember those strings
