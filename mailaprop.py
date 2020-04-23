@@ -1,8 +1,7 @@
 #!/usr/bin/python
 
 """Convert mbox input into elisp snippets for an email address database.
-See http://svn.red-bean.com/repos/kfogel/trunk/bin/README.mailaprop
-for what this is all about.
+See https://github.com/kfogel/mailaprop for what this is all about.
 
 Usage: mailaprop.py < STDIN > OUTPUT
 """
