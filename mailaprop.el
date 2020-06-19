@@ -77,9 +77,10 @@ in-memory database `mailaprop-addresses'.")
             (kill-buffer (current-buffer)))))
     '()))
 
-(defun mailaprop-ingest-addresses ()
-  "Read and return the lisp expression in `mailaprop-address-file'."
-  (mailaprop-read-sexp-from-file mailaprop-address-file))
+(defun mailaprop-ingest-addresses (&optional address-file)
+  "Read and return the lisp expression in ADDRESS-FILE.
+ADDRESS-FILE file defaults to the value of `mailaprop-address-file'."
+  (mailaprop-read-sexp-from-file (or address-file mailaprop-address-file)))
 
 (defvar mailaprop-addresses nil
   "All email addresses, with their most-recently-seen dates and their scores.  
@@ -217,22 +218,30 @@ RAW-ADDRESSES is a list as read from `mailaprop-address-file'."
                 (puthash addr score mailaprop-score-dict))))
           (setq mailaprop-addresses lst))))))
 
-(defun mailaprop-load-addresses ()
-  "Load (or reload) the email address completion table."
+(defun mailaprop-load-addresses (&optional address-file)
+  "Load (or reload) the email address completion table.
+By default loads the addresses in `mailaprop-address-file';
+use optional argument ADDRESS-FILE to specify some other file."
   (interactive)
-  (if (file-exists-p mailaprop-address-file)
+  (unless address-file
+    (if (or (not mailaprop-address-file)
+            (zerop (length mailaprop-address-file)))
+        (error "You need to set `mailaprop-address-file'.")
+      (setq address-file mailaprop-address-file)))
+  (if (file-exists-p address-file)
       (let ((memoized-strings ()))
         (message 
          "Reading addresses and rebuilding mailaprop autofill data...")
         (maphash (lambda (key ignored-val)
                    (setq memoized-strings (cons key memoized-strings)))
                  mailaprop-candidates-cache)
-        (mailaprop-digest-raw-addresses (mailaprop-ingest-addresses))
+        (mailaprop-digest-raw-addresses (mailaprop-ingest-addresses
+                                         address-file))
         (clrhash mailaprop-candidates-cache)
         (dolist (str memoized-strings) (mailaprop-get-candidates str))
         (message 
          "Reading addresses and rebuilding mailaprop autofill data...done"))
-    (error "You must set `mailaprop-address-file'.")))
+    (error "File \"%s\" does not exist." address-file)))
 (defalias 'mailaprop-reload-addresses 'mailaprop-load-addresses)
 
 (defun mailaprop-complete-address ()
