@@ -66,16 +66,18 @@ in-memory database `mailaprop-addresses'.")
 
 (defun mailaprop-read-sexp-from-file (file)
   "Read an sexp from FILE, returning nil if FILE does not exist."
-  (if (file-exists-p file)
-      (save-excursion
-        (let* ((large-file-warning-threshold nil)
-               (buf (find-file-noselect file)))
-          (set-buffer buf)
-          (goto-char (point-min))
-          (prog1
-              (read (current-buffer))
-            (kill-buffer (current-buffer)))))
-    '()))
+  (let ((buf-already (find-buffer-visiting file)))
+    (if (file-exists-p file)
+        (save-excursion
+          (let* ((large-file-warning-threshold nil)
+                 (buf (find-file-noselect file)))
+            (set-buffer buf)
+            (goto-char (point-min))
+            (prog1
+                (read (current-buffer))
+              (unless (eq buf-already buf)
+                (kill-buffer (current-buffer))))))
+      '())))
 
 (defun mailaprop-ingest-addresses (&optional address-file)
   "Read and return the lisp expression in ADDRESS-FILE.
