@@ -6,7 +6,7 @@
 ;;; SEE THE MAILAPROP DOCUMENTATION FOR MORE INFORMATION.
 
 (
- ("jrsender@sender.example.com" (("J. Random Sender <jrsender@sender.example.com>" "2020 Apr 11" 0 8) ("jrsender@sender.example.com" "2012 Jul 01" 0 1) ))
+ ("jrsender@sender.example.com" (("J. Random Sender <jrsender@sender.example.com>" "2020 Apr 11" 0 8) ("jrsender@sender.example.com" "2012 Jul 01" 0 7) ))
  ("recipient_three@receivers.example.com" (("recipient_three@receivers.example.com" "N/A" 0 0) ("Some Third Recipient <recipient_three@receivers.example.com>" "2020 Apr 11" 0 9) ))
  ("first_recipient@receivers.example.com" (("first_recipient@receivers.example.com" "N/A" 0 0) ("Firstname1 Lastname1 <first_recipient@receivers.example.com>" "2020 Apr 11" 0 1) ("Random Recipient One <first_recipient@receivers.example.com>" "2016 Jul 01" 0 8) ))
  ("second_recipient@receivers.example.com" (("second_recipient@receivers.example.com" "N/A" 0 0) ("Firstname2 Lastname2 <second_recipient@receivers.example.com>" "2020 Apr 11" 0 1) ("Random Recipient Two <second_recipient@receivers.example.com>" "2016 Jul 01" 0 8) ))
@@ -21,4 +21,5 @@
  ("emacs-devel@example.com" (("emacs-devel@example.com" "N/A" 0 0) ("Emacs-Devel List <emacs-devel@example.com>" "2009 May 05" 0 1) ))
  ("kbnikto@example.com" (("Klaatu Barada Nikto <kbnikto@example.com>" "2017 Jul 11" 0 1) ("kbnikto@example.com" "2017 Dec 04" 0 5) ))
  ("abigaild@example.com" (("abigaild@example.com" "N/A" 0 0) ("Abigail Darnaville <abigaild@example.com>" "2016 Sep 10" 0 2) ))
+ ("sofiamunoz@example.com" (("sofiamunoz@example.com" "N/A" 0 0) ("Sofía Muñoz <sofiamunoz@example.com>" "2012 Jul 01" 0 6) ))
 )

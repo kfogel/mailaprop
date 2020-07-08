@@ -1,0 +1,41 @@
+From nobody Tue Sep 10 10:13:12  2011
+From: "jrsender@sender.example.com" <jrsender@sender.example.com>
+To: Sofía Muñoz <sofiamunoz@example.com>
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test decoding of quoted-printable names.
+
+From nobody Tue Sep 10 10:13:12  2011
+From: "jrsender@sender.example.com" <jrsender@sender.example.com>
+To: Sofía Mu=C3=B1oz <sofiamunoz@example.com>
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test decoding of quoted-printable names.
+
+From nobody Tue Sep 10 10:13:12  2011
+From: "jrsender@sender.example.com" <jrsender@sender.example.com>
+To: Sofía =?utf-8?Q?Mu=C3=B1oz?= <sofiamunoz@example.com>
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test decoding of quoted-printable names.
+
+From nobody Tue Sep 10 10:13:12  2011
+From: "jrsender@sender.example.com" <jrsender@sender.example.com>
+To: Sof=C3=ADa Muñoz <sofiamunoz@example.com>
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test decoding of quoted-printable names.
+
+From nobody Tue Sep 10 10:13:12  2011
+From: "jrsender@sender.example.com" <jrsender@sender.example.com>
+To: Sof=C3=ADa Mu=C3=B1oz <sofiamunoz@example.com>
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test decoding of quoted-printable names.
+
+From nobody Tue Sep 10 10:13:12  2011
+From: "jrsender@sender.example.com" <jrsender@sender.example.com>
+To: Sof=C3=ADa =?utf-8?Q?Mu=C3=B1oz?= <sofiamunoz@example.com>
+Date: Fri, 01 Jul 2012 09:21:19 -0500
+Message-ID: <87ab5rvds7.fsf@cyd.mit.edu>
+Subject: Test decoding of quoted-printable names.

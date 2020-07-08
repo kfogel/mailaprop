@@ -23,6 +23,7 @@ import os
 import sys
 import re
 import string
+import quopri
 import email.parser
 import email.policy
 import getopt
@@ -446,8 +447,11 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
             name.lstrip().rstrip().lstrip("'\"\\").rstrip("'\"\\").replace('"', '\\"')
         if name == '':
             name = None
+        # Convert quoted-printable encoding in name to UTF-8.
         # Fix up some corner cases of the real name portion.
         if name is not None:
+            if name.find("=") != -1:
+                name = quopri.decodestring(name.encode('utf-8')).decode('utf-8')
             # Fix up the commonest case of reversed unquoted names
             # (e.g., "Random, Julie <address@example.com>").
             m = reversed_unquoted_name_re.match(name)
