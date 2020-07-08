@@ -216,12 +216,13 @@ session.
 
 **Each address on its own line:**
 
-For mailaprop to work, each email address in a header must be on its
-own line.  The first address can be on the same line as the header
-name, but no address can share a line with another address.  To
-autofill on a next address in the same header, use C-j TAB (or
-whatever key combination works for you) to navigate to the appropriate
-place on the next line, and then start typing.
+For mailaprop to work, each email address in a header (in the buffer
+where you're composing an email) must be on its own line.  The first
+address can be on the same line as the header name, but no address can
+share a line with another address.  To autofill on a next address in
+the same header, use C-j TAB (or whatever key combination works for
+you) to navigate to the appropriate place on the next line, and then
+start typing.
 
 The reason for this is that finding boundaries between email addresses
 on the same line turns out to be harder than I expected.  So I decided
