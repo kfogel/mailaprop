@@ -429,7 +429,7 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
             continue
         # Clean up the name.
         name = \
-            name.lstrip().rstrip().lstrip("'\"").rstrip("'\"").replace('"', '\\"')
+            name.lstrip().rstrip().lstrip("'\"\\").rstrip("'\"\\").replace('"', '\\"')
         sys.stderr.write("DEBUG: name at 2: %s\n" % name)
         if name == '':
             name = None
