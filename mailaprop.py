@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python3
 
 """Convert mbox input into elisp snippets for an email address database.
 See https://github.com/kfogel/mailaprop for what this is all about.
@@ -23,8 +23,8 @@ import os
 import sys
 import re
 import string
-import email.Utils
-import email.Parser
+import email.parser
+import email.policy
 import getopt
 
 # The various forms of email address WITH NAME IN FRONT are:
@@ -50,8 +50,7 @@ import getopt
 #    "jrandom@jrandom.com" <jrandom@jrandom.com>
 #    jrandom@jrandom.com <jrandom@jrandom.com>
 #
-# Fortunately, we have the email.Utils.getaddresses() function to
-# parse them.
+# Fortunately, we have email.parser.
 
 def case_preferred_str(str_a, str_b, style=None):
     """Return the case-better variant of STR_A and STR_B based on STYLE.
@@ -159,9 +158,9 @@ e.g., "2015 Jul 07", or else None.  If neither is later, return DATE_A."""
     #   File "/home/kfogel/bin/mailaprop/mailaprop.py", line 245, \
     #     in <module> main()
     #   File "/home/kfogel/bin/mailaprop/mailaprop.py", line 224, \
-    #     in main absorb_message(msg, addresses)
+    #     in main absorb_headers(msg, addresses)
     #   File "/home/kfogel/bin/mailaprop/mailaprop.py", line 208, \
-    #     in absorb_message existing_ah.maybe_merge(new_ah, addresses)
+    #     in absorb_headers existing_ah.maybe_merge(new_ah, addresses)
     #   File "/home/kfogel/bin/mailaprop/mailaprop.py", line 154, \
     #     in maybe_merge self.date = later_date(self.date, other_ah.date)
     #   File "/home/kfogel/bin/mailaprop/mailaprop.py", line 70, \
@@ -330,6 +329,19 @@ class AddressHistory:
             # it matches more than once, something is wrong, and we
             # will raise a FullAddressDuplication exception.
             matched = False
+            # Starting in Python 3.8, Python enforces that you cannot
+            # modify a dictionary you're iterating over.  You'll get
+            # "RuntimeError: dictionary keys changed during iteration".
+            # So in the for-loop below, we assemble a list of what
+            # to remove and what to add.  For the removals, we only
+            # need the key, that is, the address string.   For the
+            # adds, we need both the key and the value.  Thus, these
+            # two accumulators have different structures.  The first
+            # is a list of strings (full addresses):
+            to_remove = []
+            # The second is a dictionary mapping strings (full addresses) 
+            # onto lists ([new_date, new_sent_count, new_recv_count,]):
+            to_add = {}
             for other_full_addr in self.full_addrs.keys():
                 # If they differ only by case, pick the better one or combine.
                 if candidate_full_addr.lower() == other_full_addr.lower():
@@ -350,11 +362,16 @@ class AddressHistory:
                     new_full_addr  = self.make_full_addr(new_addr, new_name)
                     new_sent_count = other_sent_count + incr_sent
                     new_recv_count = other_recv_count + incr_recv
-                    del self.full_addrs[other_full_addr]
-                    if self.full_addrs.has_key(candidate_full_addr):
-                        del self.full_addrs[candidate_full_addr]
-                    self.full_addrs[new_full_addr] = \
+                    to_remove.append(other_full_addr)
+                    if ((candidate_full_addr != other_full_addr)
+                        and (candidate_full_addr in self.full_addrs)):
+                        to_remove.append(candidate_full_addr)
+                    to_add[new_full_addr] = \
                         [new_date, new_sent_count, new_recv_count,]
+            for this_addr in to_remove:
+                del self.full_addrs[this_addr]
+            for this_addr in to_add.keys():
+                self.full_addrs[this_addr] = to_add[this_addr]
             if not matched:
                 self.full_addrs[candidate_full_addr] = \
                     [date, incr_sent, incr_recv,]
@@ -377,8 +394,8 @@ class AddressBook(dict):
 
 reversed_unquoted_name_re = re.compile("([^, ]+), +([^, ]+)")
 
-def absorb_message(msg, addresses, skip_regexps, restricteds):
-    """File email.Message MSG into AddressBook ADDRESSES appropriately.
+def absorb_headers(msg_headers, addresses, skip_regexps, restricteds):
+    """File MSG_HEADERS into AddressBook ADDRESSES appropriately.
 
 SKIP_REGEXPS is a list of compiled regular expressions.  Any address
 that matches any of the regular expressions will not be placed into
@@ -390,12 +407,19 @@ email addresses and whose values are subdictionaries, with each
 subdictionary's keys being the lower-cased permissible names (the values
 are ignored -- they're just True) for that email address; an address
 that is in RESTRICTEDS but with an impermissible name is ignored here."""
-    froms = msg.get_all('from', [ ])
-    tos = msg.get_all('to', [ ])
-    ccs = msg.get_all('cc', [ ])
-    bccs = msg.get_all('bcc', [ ])
-    raw_date = msg.get_all('date', None)
-    for name, addr in email.Utils.getaddresses(froms + tos + ccs + bccs):
+    froms = msg_headers.get_all('from', [ ])
+    tos = msg_headers.get_all('to', [ ])
+    ccs = msg_headers.get_all('cc', [ ])
+    bccs = msg_headers.get_all('bcc', [ ])
+    raw_date = msg_headers.get_all('date', None)
+    # A list of tuples, where each tuple is (name, address).
+    pairs = [ ]
+    for source in (froms + tos + ccs + bccs):
+        for addr in source.addresses:
+            if addr.username and addr.domain:
+                pairs.append((addr.display_name,
+                              addr.username + "@" + addr.domain,))
+    for name, addr in pairs:
         # Certain special cases can be eliminated right out of the gate.
         if (name.find("via StreetEasy") >= 0 or addr.find("via StreetEasy") >= 0
             # Anyone named Viagra has already changed their name by now, right?
@@ -476,8 +500,8 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
                 sent_to = True
                 break
         # Okay, ready for prime time.
-        if (restricteds.has_key(addr.lower())
-            and not restricteds[addr.lower()].has_key(name.lower())):
+        if ((addr.lower() in restricteds)
+            and not (name.lower() in restricteds[addr.lower()])):
             pass
         elif addr.find("@") != -1:
             # There's got to be a way to combine these two tests into
@@ -506,18 +530,18 @@ def main():
     # want those fake addresses for real known people to interfere
     # with completion on their names, so we eliminate them.
     #
-    # See absorb_message() for the format of this dictionary.
+    # See absorb_headers() for the format of this dictionary.
     restricteds = {}
 
     # List of compiled regular expressions.  If an address matches any
-    # of these, it is skipped; see absorb_message() for details.
+    # of these, it is skipped; see absorb_headers() for details.
     skip_regexps = []
 
     try:
         (opts, args) = getopt.getopt(sys.argv[1:], "",
                                      [ "restricteds=", 
                                        "skip-regexps=",])
-    except getopt.GetoptError, err:
+    except getopt.GetoptError as err:
         sys.stderr.write(str(err))
         sys.stderr.write("\n")
         sys.exit(1)
@@ -534,7 +558,7 @@ def main():
             for full_addr in lst:
                 name = name_from_address(full_addr).lower()
                 addr = address_from_address(full_addr).lower()
-                if not restricteds.has_key(addr):
+                if not addr in restricteds:
                     restricteds[addr] = {}
                 restricteds[addr][name] = True
         elif opt in ("--ignore-empty"):
@@ -553,27 +577,35 @@ def main():
         roots = args
   
     msg_start_re = re.compile("^From |^X-From-Line: ")
-    p = email.Parser.HeaderParser()
+    p = email.parser.HeaderParser(policy=email.policy.default)
     msg_str = ""
     line = sys.stdin.readline()
     while line:
         if msg_start_re.match(line):
             if msg_str:
-                msg = p.parsestr(msg_str)
-                absorb_message(msg, addresses, skip_regexps, restricteds)
+                msg_headers = p.parsestr(msg_str)
+                # TODO: msg_headers is actually the root object of a tree of msg_headerss.
+                # There would be children under that root if, e.g.,
+                # this email contained forwarded emails inside it.  So
+                # we should parse the whole tree, not just the root.
+                # https://docs.python.org/3/library/email.parser.html
+                # documents that there's a walk() method for this.
+                absorb_headers(msg_headers, addresses, skip_regexps, restricteds)
             msg_str = line
         else:
             msg_str += line
         line = sys.stdin.readline()
     # Polish off the last message.
     if msg_str:
-        msg = p.parsestr(msg_str)
-        absorb_message(msg, addresses, skip_regexps, restricteds)
+        msg_headers = p.parsestr(msg_str)
+        absorb_headers(msg_headers, addresses, skip_regexps, restricteds)
     # Print out the elisp core.
     def elisp_addr(ah):
         """Return the Elisp expression for AddressHistory AH."""
         ret = '("' + ah.key_addr + '" ('
-        for this_full_addr, metadata in ah.full_addrs.iteritems():
+        # We should really sort the output so that the test suite
+        # can have stable expectations.
+        for this_full_addr, metadata in ah.full_addrs.items():
             this_date, this_sent_count, this_recv_count = metadata
             if this_date is None:
                 this_date = "N/A"
@@ -593,8 +625,8 @@ def main():
     print(";;; SEE THE MAILAPROP DOCUMENTATION FOR MORE INFORMATION.")
     print("")
     print("(")
-    for key_addr, ah in addresses.iteritems():
-        print " " + elisp_addr(ah)
+    for key_addr, ah in addresses.items():
+        print(" " + elisp_addr(ah))
     print(")")
 
 if __name__ == '__main__':
