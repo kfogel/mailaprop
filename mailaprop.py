@@ -396,16 +396,6 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
     bccs = msg.get_all('bcc', [ ])
     raw_date = msg.get_all('date', None)
     for name, addr in email.Utils.getaddresses(froms + tos + ccs + bccs):
-        # TODO: There's a bug whereby this input...
-        #
-        #   "\"\\\"Lastname1, Firstname1\\\"\"" <first_recipient@receivers.example.com>
-        #
-        # ...becomes this output:
-        #
-        #   "Firstname1\ \\"Lastname1 <first_recipient@receivers.example.com>"
-        #
-        # That cannot be parsed by mailaprop.el, of course.
-        sys.stderr.write("DEBUG: name at 1: %s\n" % name)
         # Certain special cases can be eliminated right out of the gate.
         if (name.find("via StreetEasy") >= 0 or addr.find("via StreetEasy") >= 0
             # Anyone named Viagra has already changed their name by now, right?
@@ -430,7 +420,6 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
         # Clean up the name.
         name = \
             name.lstrip().rstrip().lstrip("'\"\\").rstrip("'\"\\").replace('"', '\\"')
-        sys.stderr.write("DEBUG: name at 2: %s\n" % name)
         if name == '':
             name = None
         # Fix up some corner cases of the real name portion.
@@ -438,10 +427,8 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
             # Fix up the commonest case of reversed unquoted names
             # (e.g., "Random, Julie <address@example.com>").
             m = reversed_unquoted_name_re.match(name)
-            sys.stderr.write("DEBUG: name at 3: %s\n" % name)
             if m is not None:
                 name = m.group(2) + " " + m.group(1)
-            sys.stderr.write("DEBUG: name at 4: %s\n" % name)
             # Fix the case of names that have newlines in them.
             nl_idx = name.find("\n")
             if nl_idx >= 0:
@@ -452,7 +439,6 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
             gs_idx = name.find(" (via Google ")
             if gs_idx != -1:
                 name = name[0:gs_idx]
-        sys.stderr.write("DEBUG: name at 5: %s\n" % name)
         # Clean up the address portion.
         addr = addr.lstrip().rstrip().lstrip("<>").rstrip("<>")
         # Some weird addresses out there, e.g., "jason wishnow"@evil-wire.org
@@ -502,12 +488,6 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
             # in the loop overhead.  Still, it's ugly to loop twice
             # over the same list of regexps like this.  I won't
             # challenge the refs if they deduct style points.
-            if name is not None:
-                for skip_re in skip_regexps:
-                    m = skip_re.match(name)
-                    sys.stderr.write("DEBUG: TESTING: '%s' against '%s'\n" % (skip_re.pattern, name))
-                    if m is not None:
-                        sys.stderr.write("DEBUG: MATCHED: '%s' with '%s'\n" % (skip_re.pattern, name))
             if not (((name is not None) and any(skip_re.search(name)
                                   for skip_re in skip_regexps))
                     or any(skip_re.search(addr) 
