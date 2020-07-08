@@ -502,6 +502,12 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
             # in the loop overhead.  Still, it's ugly to loop twice
             # over the same list of regexps like this.  I won't
             # challenge the refs if they deduct style points.
+            if name is not None:
+                for skip_re in skip_regexps:
+                    m = skip_re.match(name)
+                    sys.stderr.write("DEBUG: TESTING: '%s' against '%s'\n" % (skip_re.pattern, name))
+                    if m is not None:
+                        sys.stderr.write("DEBUG: MATCHED: '%s' with '%s'\n" % (skip_re.pattern, name))
             if not (((name is not None) and any(skip_re.search(name)
                                   for skip_re in skip_regexps))
                     or any(skip_re.search(addr) 
