@@ -636,7 +636,7 @@ def main():
         if msg_start_re.match(line):
             if msg_str:
                 msg_headers = p.parsestr(msg_str)
-                # TODO: msg_headers is actually the root object of a tree of msg_headerss.
+                # TODO: msg_headers is the root of a tree of Messages.
                 # There would be children under that root if, e.g.,
                 # this email contained forwarded emails inside it.  So
                 # we should parse the whole tree, not just the root.
