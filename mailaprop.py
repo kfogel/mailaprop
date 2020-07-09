@@ -605,6 +605,10 @@ def main():
 
     line = sys.stdin.readline()
     while line:
+        # TODO: We could notice the transition from headers to body
+        # and just toss the body lines -- there's no need to
+        # accumulate them, since absorb_headers() isn't going to use
+        # them.  This might improve performance a tiny little bit.
         if msg_start_re.match(line):
             if msg_str:
                 msg_headers = p.parsestr(msg_str)
