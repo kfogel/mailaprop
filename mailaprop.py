@@ -583,6 +583,26 @@ def main():
     msg_start_re = re.compile("^From |^X-From-Line: ")
     p = email.parser.HeaderParser(policy=email.policy.default)
     msg_str = ""
+
+    # If we don't reconfigure how stdin handles unexpected encodings,
+    # then input in, e.g., Latin-1 will cause errors like this:
+    #
+    #   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xa0 \
+    #                       in position 211: invalid start byte
+    # 
+    #   UnicodeDecodeError: 'utf-8' codec can't decode byte 0xed \
+    #                       in position 109: invalid continuation byte
+    #
+    # The solution is to tell stdin to please clean things up as best
+    # it can before we even see the line.  Documentation on this is at
+    # https://docs.python.org/3.7/library/io.html#io.TextIOWrapper.reconfigure
+    # and https://docs.python.org/3.7/library/functions.html#open.
+    # 
+    # Regarding the 'errors' parameter, some other possibilities are
+    # "replace", "xmlcharrefreplace", "backslashreplace", and
+    # "namereplace".  I still think "ignore" is our best bet, though.
+    sys.stdin.reconfigure(encoding='utf-8', errors='ignore')
+
     line = sys.stdin.readline()
     while line:
         if msg_start_re.match(line):
