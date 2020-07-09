@@ -413,7 +413,21 @@ If DEBUG is not False, print the Message-ID to stderr before parsing
 any other headers."""
     if debug:
         msg_id = msg_headers.get_all('message-id', [ ])
-        sys.stderr.write("DEBUG: absorb_headers(): Message-ID: %s\n" % msg_id[0])
+        try:
+            sys.stderr.write(
+                "DEBUG: absorb_headers(): Message-ID: %s\n" % msg_id[0])
+        except IndexError:
+            sys.stderr.write("DEBUG: absorb_headers(): fallback 1:\n")
+            try:
+                sys.stderr.write(
+                    "DEBUG: absorb_headers(): msg_headers.as_string():\n")
+                sys.stderr.write(
+                    "       %s\n" % msg_headers.as_string())
+            except IndexError:
+                sys.stderr.write("DEBUG: absorb_headers(): fallback 2:\n")
+                sys.stderr.write(
+                    "DEBUG: 3-P-0h!  Shut down all the garbage compactors\n"
+                    "       on the detention level immediately!\n")
     froms = msg_headers.get_all('from', [ ])
     tos = msg_headers.get_all('to', [ ])
     ccs = msg_headers.get_all('cc', [ ])
