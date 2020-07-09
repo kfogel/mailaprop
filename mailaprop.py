@@ -583,15 +583,12 @@ def main():
                 if not addr in restricteds:
                     restricteds[addr] = {}
                 restricteds[addr][name] = True
-        elif opt in ("--ignore-empty"):
-            ignore_empty = True
-        elif opt in ("--ignore-dir"):
-            ignored_directories.append(optarg)
-        elif opt in ("--ignore-contained"):
-            ignored_if_containing.append(optarg)
         elif opt in ("--skip-regexps"):
             with open(optarg) as f:
                 skip_regexps = [re.compile(x.rstrip()) for x in f.readlines()] 
+        else:
+            sys.stderr.write("ERROR: unknown option '%s'\n" % opt)
+            sys.exit(1)
   
     if len(args) < 1:
         roots = (".",)
