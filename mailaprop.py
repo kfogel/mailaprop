@@ -461,7 +461,15 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
         # Fix up some corner cases of the real name portion.
         if name is not None:
             if name.find("=") != -1:
-                name = quopri.decodestring(name.encode('utf-8')).decode('utf-8')
+                # This could be improved.  Ignoring decoding errors
+                # here isn't the greatest solution.  But I've got
+                # hundreds of thousands of email addresses to deal
+                # with, and limited time, so if one drops on the floor
+                # now and then, I think I'll just live with that.
+                # (Or to put it another way: "Patches welcome!")
+                name = quopri.decodestring(
+                    name.encode('utf-8', errors='ignore')).decode(
+                        'utf-8', errors='ignore')
             # Fix up the commonest case of reversed unquoted names
             # (e.g., "Random, Julie <address@example.com>").
             m = reversed_unquoted_name_re.match(name)
