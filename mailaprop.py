@@ -395,7 +395,7 @@ class AddressBook(dict):
 
 reversed_unquoted_name_re = re.compile("([^, ]+), +([^, ]+)")
 
-def absorb_headers(msg_headers, addresses, skip_regexps, restricteds):
+def absorb_headers(msg_headers, addresses, skip_regexps, restricteds, debug):
     """File MSG_HEADERS into AddressBook ADDRESSES appropriately.
 
 SKIP_REGEXPS is a list of compiled regular expressions.  Any address
@@ -407,7 +407,13 @@ RESTRICTEDS is a nested dictionary whose keys are lower-cased raw
 email addresses and whose values are subdictionaries, with each
 subdictionary's keys being the lower-cased permissible names (the values
 are ignored -- they're just True) for that email address; an address
-that is in RESTRICTEDS but with an impermissible name is ignored here."""
+that is in RESTRICTEDS but with an impermissible name is ignored here.
+
+If DEBUG is not False, print the Message-ID to stderr before parsing
+any other headers."""
+    if debug:
+        msg_id = msg_headers.get_all('message-id', [ ])
+        sys.stderr.write("DEBUG: absorb_headers(): Message-ID: %s\n" % msg_id[0])
     froms = msg_headers.get_all('from', [ ])
     tos = msg_headers.get_all('to', [ ])
     ccs = msg_headers.get_all('cc', [ ])
@@ -542,7 +548,7 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
 
 
 def main():
-
+    debug = False
     addresses = AddressBook()
 
     # List of full forms (e.g. "Real Name <email@example.com>") that
@@ -561,7 +567,8 @@ def main():
 
     try:
         (opts, args) = getopt.getopt(sys.argv[1:], "",
-                                     [ "restricteds=", 
+                                     [ "debug",
+                                       "restricteds=", 
                                        "skip-regexps=",])
     except getopt.GetoptError as err:
         sys.stderr.write(str(err))
@@ -583,6 +590,8 @@ def main():
                 if not addr in restricteds:
                     restricteds[addr] = {}
                 restricteds[addr][name] = True
+        elif opt in ("--debug"):
+            debug = True
         elif opt in ("--skip-regexps"):
             with open(optarg) as f:
                 skip_regexps = [re.compile(x.rstrip()) for x in f.readlines()] 
@@ -633,7 +642,8 @@ def main():
                 # we should parse the whole tree, not just the root.
                 # https://docs.python.org/3/library/email.parser.html
                 # documents that there's a walk() method for this.
-                absorb_headers(msg_headers, addresses, skip_regexps, restricteds)
+                absorb_headers(msg_headers, addresses, skip_regexps, 
+                               restricteds, debug)
             msg_str = line
         else:
             msg_str += line
@@ -641,7 +651,8 @@ def main():
     # Polish off the last message.
     if msg_str:
         msg_headers = p.parsestr(msg_str)
-        absorb_headers(msg_headers, addresses, skip_regexps, restricteds)
+        absorb_headers(msg_headers, addresses, skip_regexps, 
+                       restricteds, debug)
     # Print out the elisp core.
     def elisp_addr(ah):
         """Return the Elisp expression for AddressHistory AH."""
