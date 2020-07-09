@@ -412,7 +412,17 @@ that is in RESTRICTEDS but with an impermissible name is ignored here."""
     tos = msg_headers.get_all('to', [ ])
     ccs = msg_headers.get_all('cc', [ ])
     bccs = msg_headers.get_all('bcc', [ ])
-    raw_date = msg_headers.get_all('date', None)
+    # If the Date header is malformed such that it cannot be parsed
+    # (e.g., we've seen one mail that has "Date: 18.6.2009") then
+    # email.message.Message.get_all() will raise an exception:
+    #
+    #   TypeError: cannot unpack non-iterable NoneType object
+    # 
+    # Fortunately, we don't absolutely need the date anyway.
+    try:
+        raw_date = msg_headers.get_all('date', None)
+    except TypeError:
+        raw_date = None
     # A list of tuples, where each tuple is (name, address).
     pairs = [ ]
     for source in (froms + tos + ccs + bccs):

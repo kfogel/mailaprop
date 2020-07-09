@@ -1,0 +1,9 @@
+From nobody Fri Jul  1 09:21:20 2012
+From: J. Random Sender <jrsender@sender.example.com>
+To: Random Recipient One <first_recipient@receivers.example.com>
+Subject: Something is wrong with my headers.  How did this happen?
+Message-ID: <1.87furtcucg.fsf@red-bean.com>
+Date: 18.6.2009
+
+A message with a curiously malformed Date header.
+(Original: ~/mail/red-bean/help/766)
